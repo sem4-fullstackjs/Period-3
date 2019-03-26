@@ -2,7 +2,7 @@
 
 You can pinpoint any place on Earth using a single set of coordinates: latitude, longitude (and elevation).
 Unfortunately, for us as developers, there is no “one-way” of handling this order.
-. On maps, and map-software the [common order](https://www.google.com/maps/@55.7898687,12.5634686,13) is: 
+- On maps, and map-software the [common order](https://www.google.com/maps/@55.7898687,12.5634686,13) is: 
 **[latitude, longitude]**
 - In many backend libraries/technologies, like for example GeoJSON, the order is the reverse: **[longitude, latitude, elevation]**
 
@@ -18,7 +18,10 @@ An alternative is to express geographic coordinates in decimal degrees. It’s j
 - **LATITUDE**: 40.714
 - **LONGITUDE**: -74.006 
 
-![DMS Conversion](../img/dmsconversion.jpg)
+```math
+42^{\circ}24{}'36{}'' = 42^{\circ} + (\frac{24}{60})^{\circ} + (\frac{36}{3600})^{\circ} = 42.41^{\circ}
+```
+<!-- ![DMS Conversion](../img/dmsconversion.jpg) -->
 
 ## GeoJson
 
