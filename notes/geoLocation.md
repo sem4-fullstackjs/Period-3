@@ -18,10 +18,7 @@ An alternative is to express geographic coordinates in decimal degrees. It’s j
 - **LATITUDE**: 40.714
 - **LONGITUDE**: -74.006 
 
-```math
-42^{\circ}24{}'36{}'' = 42^{\circ} + (\frac{24}{60})^{\circ} + (\frac{36}{3600})^{\circ} = 42.41^{\circ}
-```
-<!-- ![DMS Conversion](../img/dmsconversion.jpg) -->
+![DMS Conversion](../img/dmsconversion.jpg)
 
 ## GeoJson
 
