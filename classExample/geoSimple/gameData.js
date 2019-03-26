@@ -1,3 +1,4 @@
+// http://geojson.io/#map=13/55.8019/12.5575
 const gameArea = {
   "type": "Feature",
   "properties": {},

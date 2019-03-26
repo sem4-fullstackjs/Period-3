@@ -43,7 +43,7 @@ describe("Geo API Test", function () {
       expect(result.status).to.be.true;
     });
     it("Should NOT find user in gameArea", async function () {
-      result = await fetch(`${URL}/isuserinarea/7/3`).then(res => res.json());
+      result = await fetch(`${URL}/isuserinarea/7/7`).then(res => res.json());
       expect(result.status).to.be.false;
     });
   });
