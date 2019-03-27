@@ -73,7 +73,7 @@ const players = [
 ]
 ```
 
-However, for an full example check out the [geoSimple](https://github.com/sem4-fullstackjs/Period-3/tree/master/exerciseses/geoSimple) exercises
+However, for an full example check out the [geoSimple](https://github.com/sem4-fullstackjs/Period-3/tree/master/exercises/geoSimple) exercises
 
 There's multiple sites out there where you can create Geo-JSON data, like this [gist](https://gist.github.com/aaronlidman/7894176?short_path=d0d520b), and [geojson.io](http://geojson.io/#map=2/20.0/0.0)
 
@@ -104,7 +104,7 @@ An alternative is to express geographic coordinates in decimal degrees. It’s j
 
 ## Explain and demonstrate a REST API that implements geo-features, using a relevant geo-library and plain JavaScript
 
-[geoSimple](https://github.com/sem4-fullstackjs/Period-3/tree/master/exerciseses/geoSimple) - Write more about this question, and maybe use another example
+[geoSimple](https://github.com/sem4-fullstackjs/Period-3/tree/master/exercises/geoSimple) - Write more about this question, and maybe use another example
 
 ## Explain and demonstrate a REST API that implements geo-features, using Mongodb’s geospatial queries and indexes.
 
