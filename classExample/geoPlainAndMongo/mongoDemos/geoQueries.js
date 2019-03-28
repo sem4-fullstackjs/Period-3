@@ -12,7 +12,7 @@ p.then(con => console.log('------------- Connected -------------'))
 setTimeout(() => {
 	console.log('Disconnected')
 	mongoose.disconnect()
-}, 2000)
+}, 3000)
 
 async function isPlayerWithin(gameAreaName, playerName, fields) {
 	const gameArea = await GameArea.findOne({ name: gameAreaName })
@@ -34,29 +34,76 @@ async function isPlayerWithin(gameAreaName, playerName, fields) {
 
 ///geoapi/findNearbyPlayers/:lon/:lat/:rad
 async function findNearbyPlayers(lon, lat, dist, fields) {
-	return []
+	return Player.find(
+		{
+			location: {
+				$near: {
+					$geometry: { type: 'Point', coordinates: [lon, lat] },
+					$maxDistance: dist,
+					$minDistance: 0
+				}
+			}
+		},
+		fields
+	)
 }
 
 ///geoapi/distanceToUser/:lon/:lat/:username
 async function findDistanceToPlayerWithGJU(lon, lat, name) {
-	return null
+	const player = await Player.findOne({ name })
+	if (player === null) {
+		throw new Error(`Player ${name} Not Found`)
+	}
+	const point = { type: 'Point', coordinates: [lon, lat] }
+	const distance = gju.pointDistance(point, player.location)
+	return { name, distance }
 }
 
 //Use Mongo's aggregation pipeline to calculate result
 async function findNearbyPlayersAgg(lon, lat, dist) {
-	return []
+	return Player.aggregate([
+		{
+			$geoNear: {
+				near: {
+					type: 'Point',
+					coordinates: [lon, lat]
+				},
+				maxDistance: dist,
+				spherical: true,
+				distanceField: 'distance'
+			}
+		}
+	])
 }
 
 //Use Mongo's aggregation pipeline to calculate result
 async function findDistanceToPlayerAgg(lon, lat, name) {
-	return null
+	return Player.aggregate([
+		{
+			$geoNear: {
+				near: {
+					type: 'Point',
+					coordinates: [lon, lat]
+				},
+				maxDistance: 100000, //Hard coded distance
+				spherical: true,
+				distanceField: 'distance'
+			}
+		},
+		{ $match: { name: name } },
+		{ $project: { name: 1, distance: 1, _id: 0 } }
+	])
 }
 
 ;(async function runTests() {
 	console.log('------------- isPlayerWithin -----------------')
 	const helle = await isPlayerWithin('Intro-game', 'HelleInside', { name: 1, _id: 0 })
 	console.log('Helle is Game Area', helle)
-	const kurt = await isPlayerWithin('Intro-game', 'KurtOutside', { name: 1, location: 1, _id: 0 })
+	const kurt = await isPlayerWithin('Intro-game', 'KurtOutside', {
+		name: 1,
+		location: 1,
+		_id: 0
+	})
 	console.log('Kurt is Game Area', kurt)
 
 	console.log("------------- findNearbyPlayers, location given is for 'JanInside' --------------")
@@ -72,7 +119,7 @@ async function findDistanceToPlayerAgg(lon, lat, name) {
 	const dist = await findDistanceToPlayerWithGJU(
 		12.572307586669922,
 		55.78275147606406,
-		'PeterOutside'
+		'JanInside'
 	)
 	if (dist) console.log(`${dist.name}, Distance: ${dist.distance.toFixed(2)} m.`)
 
