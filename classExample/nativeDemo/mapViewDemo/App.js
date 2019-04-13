@@ -4,6 +4,8 @@ import React, { Component } from 'react'
 import { Platform, Text, View, StyleSheet } from 'react-native'
 import { Constants, Location, Permissions, MapView, Marker } from 'expo'
 
+const mapStyle = require('./mapStyle')
+
 export default class App extends Component {
 	state = {
 		location: null,
@@ -34,7 +36,7 @@ export default class App extends Component {
 		if (this.state.errorMessage) {
 			text = this.state.errorMessage
 		} else if (this.state.location) {
-			text = JSON.stringify(this.state.location)
+			// text = JSON.stringify(this.state.location)
 			loc = { latitude, longitude } = this.state.location.coords
 		}
 
@@ -43,6 +45,8 @@ export default class App extends Component {
 				<Text style={styles.paragraph}>{text}</Text>
 				{this.state.location && (
 					<MapView
+						provider={MapView.PROVIDER_GOOGLE}
+						customMapStyle={mapStyle}
 						style={{ flex: 1 }}
 						initialRegion={{
 							latitude: this.state.location.coords.latitude,
@@ -51,7 +55,7 @@ export default class App extends Component {
 							longitudeDelta: 0.0421
 						}}
 					>
-						<MapView.Marker title="Gonners" coordinate={loc} />
+						<MapView.Marker title="You" coordinate={loc} />
 					</MapView>
 				)}
 			</View>
