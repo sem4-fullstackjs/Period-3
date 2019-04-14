@@ -38,6 +38,7 @@ export default class App extends Component {
 		} else if (this.state.location) {
 			loc = { latitude, longitude } = this.state.location.coords
 			text = `Latitude: ${loc.latitude.toFixed(6)} \n Longitude: ${loc.longitude.toFixed(6)}`
+			loc_test = { latitude: 55.377169, longitude: 11.967019 }
 		}
 
 		return (
@@ -57,6 +58,8 @@ export default class App extends Component {
 						}}
 					>
 						<MapView.Marker title="You" coordinate={loc} />
+						{/* This test_marker is located in Terslev */}
+						<MapView.Marker title="Test" coordinate={loc_test} />
 					</MapView>
 				)}
 			</View>
