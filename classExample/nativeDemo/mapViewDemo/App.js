@@ -36,12 +36,13 @@ export default class App extends Component {
 		if (this.state.errorMessage) {
 			text = this.state.errorMessage
 		} else if (this.state.location) {
-			// text = JSON.stringify(this.state.location)
 			loc = { latitude, longitude } = this.state.location.coords
+			text = `Latitude: ${loc.latitude.toFixed(6)} \n Longitude: ${loc.longitude.toFixed(6)}`
 		}
 
 		return (
 			<View style={styles.container}>
+				{/* This is to display the coords over the map*/}
 				<Text style={styles.paragraph}>{text}</Text>
 				{this.state.location && (
 					<MapView
